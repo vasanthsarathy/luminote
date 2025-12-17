@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "npm run build && wrangler pages deploy ./out --project-name=luminote"
+    "deploy": "npm run build && wrangler pages deploy ./out --project-name=luminote",
+    "test:prompt": "node -r dotenv/config node_modules/.bin/tsx scripts/test-prompt-parser.ts dotenv_config_path=.env.local",
+    "parse-layout": "npx tsx scripts/parse-layout.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
@@ -22,6 +24,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
+    "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "^15.1.3",
     "postcss": "^8.4.49",
