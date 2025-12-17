@@ -13,11 +13,11 @@ Primary goal: Enable **music → light choreography** in minutes, not weeks, thr
 This project is hosted on **Cloudflare** and uses **Wrangler** for deployment commands.
 
 Common commands:
-- `npm run dev` - Run local Next.js development server
-- `npm run build` - Build Next.js for production (static export)
-- `npm run pages:build` - Build for Cloudflare Pages using @cloudflare/next-on-pages
-- `npm run pages:deploy` - Build and deploy to Cloudflare Pages
+- `npm run dev` - Run local Next.js development server (http://localhost:3000)
+- `npm run build` - Build Next.js for production (static export to ./out)
+- `npm run deploy` - Build and deploy to Cloudflare Pages
 - `wrangler tail` - View live logs from production
+- `wrangler pages deployment list` - List all deployments
 
 ## Development Workflow
 
@@ -75,13 +75,13 @@ Deploy to Cloudflare Pages after:
 
 **Deployment command:**
 ```bash
-npm run pages:deploy
+npm run deploy
 ```
 
 This will:
-1. Build the Next.js app with Cloudflare Pages adapter
-2. Generate static output in `.vercel/output/static`
-3. Deploy to Cloudflare Pages using Wrangler
+1. Build the Next.js app (static export to `./out`)
+2. Deploy the output directory to Cloudflare Pages using Wrangler
+3. Output the deployment URL
 
 ## Architecture
 

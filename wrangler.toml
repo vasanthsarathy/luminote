@@ -1,6 +1,6 @@
-name = "luminote-mvp"
+name = "luminote"
 compatibility_date = "2024-12-17"
-pages_build_output_dir = ".vercel/output/static"
+pages_build_output_dir = "out"
 
 [env.production]
 vars = { ENVIRONMENT = "production" }
