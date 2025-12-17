@@ -13,10 +13,75 @@ Primary goal: Enable **music → light choreography** in minutes, not weeks, thr
 This project is hosted on **Cloudflare** and uses **Wrangler** for deployment commands.
 
 Common commands:
-- `wrangler dev` - Run local development server
-- `wrangler deploy` - Deploy to Cloudflare
+- `npm run dev` - Run local Next.js development server
+- `npm run build` - Build Next.js for production (static export)
+- `npm run pages:build` - Build for Cloudflare Pages using @cloudflare/next-on-pages
+- `npm run pages:deploy` - Build and deploy to Cloudflare Pages
 - `wrangler tail` - View live logs from production
-- `wrangler pages publish` - Publish Pages deployment
+
+## Development Workflow
+
+### Regular Git Commits
+
+**IMPORTANT**: Make regular git commits and pushes throughout development. After completing any significant piece of work (feature, fix, or milestone), always:
+
+1. **Stage changes**: `git add -A`
+2. **Commit with descriptive message**: Use the format below
+3. **Push to remote**: `git push origin main`
+4. **Deploy** (when appropriate): `npm run pages:deploy`
+
+### Commit Message Format
+
+Use conventional commits with Claude Code attribution:
+
+```bash
+git commit -m "$(cat <<'EOF'
+type: Brief description of changes
+
+Detailed explanation of what was changed and why.
+Include context about the feature or fix.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+EOF
+)"
+```
+
+**Commit types:**
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `refactor:` - Code refactoring
+- `docs:` - Documentation changes
+- `chore:` - Maintenance tasks
+- `test:` - Test additions or changes
+
+### When to Commit
+
+Commit after:
+- Completing a feature or component
+- Fixing a bug
+- Completing a phase of the MVP plan (e.g., "Phase 1: Foundation complete")
+- Before switching to a different task
+- At the end of each work session
+
+### When to Deploy
+
+Deploy to Cloudflare Pages after:
+- Completing a major milestone
+- Finishing a user-facing feature
+- When code is stable and tested
+- Before asking the user to test
+
+**Deployment command:**
+```bash
+npm run pages:deploy
+```
+
+This will:
+1. Build the Next.js app with Cloudflare Pages adapter
+2. Generate static output in `.vercel/output/static`
+3. Deploy to Cloudflare Pages using Wrangler
 
 ## Architecture
 
