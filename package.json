@@ -10,6 +10,7 @@
     "lint": "next lint",
     "deploy": "npm run build && wrangler pages deploy ./out --project-name=luminote",
     "test:prompt": "node -r dotenv/config node_modules/.bin/tsx scripts/test-prompt-parser.ts dotenv_config_path=.env.local",
+    "test:effects": "npx tsx scripts/test-effect-renderer.ts",
     "parse-layout": "npx tsx scripts/parse-layout.ts"
   },
   "dependencies": {
