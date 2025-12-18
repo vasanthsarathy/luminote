@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "npm run build && wrangler pages deploy ./out --project-name=luminote",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static --project-name=luminote",
     "test:prompt": "node -r dotenv/config node_modules/.bin/tsx scripts/test-prompt-parser.ts dotenv_config_path=.env.local",
     "test:effects": "npx tsx scripts/test-effect-renderer.ts",
     "test:fseq": "npx tsx scripts/test-fseq-writer.ts",
@@ -23,6 +24,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
