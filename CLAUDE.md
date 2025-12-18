@@ -10,14 +10,32 @@ Primary goal: Enable **music → light choreography** in minutes, not weeks, thr
 
 ## Deployment
 
-This project is hosted on **Cloudflare** and uses **Wrangler** for deployment commands.
+This project is hosted on **Cloudflare Pages** and uses **Wrangler** for deployment commands.
 
 Common commands:
 - `npm run dev` - Run local Next.js development server (http://localhost:3000)
-- `npm run build` - Build Next.js for production (static export to ./out)
+- `npm run build` - Build Next.js for production
+- `npm run pages:build` - Build for Cloudflare Pages using @cloudflare/next-on-pages
 - `npm run deploy` - Build and deploy to Cloudflare Pages
 - `wrangler tail` - View live logs from production
 - `wrangler pages deployment list` - List all deployments
+
+### Local Development
+
+1. Copy `.env.example` to `.env.local`
+2. Add your Anthropic API key: `ANTHROPIC_API_KEY=your_key_here`
+3. Run `npm run dev`
+4. Open http://localhost:3000
+
+### Cloudflare Pages Deployment
+
+1. Connect your GitHub repository to Cloudflare Pages
+2. Set build command: `npm run pages:build`
+3. Set build output directory: `.vercel/output/static`
+4. Add environment variable in Cloudflare dashboard: `ANTHROPIC_API_KEY`
+5. Deploy!
+
+Or use CLI: `npm run deploy`
 
 ## Development Workflow
 
