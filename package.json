@@ -11,6 +11,8 @@
     "deploy": "npm run build && wrangler pages deploy ./out --project-name=luminote",
     "test:prompt": "node -r dotenv/config node_modules/.bin/tsx scripts/test-prompt-parser.ts dotenv_config_path=.env.local",
     "test:effects": "npx tsx scripts/test-effect-renderer.ts",
+    "test:fseq": "npx tsx scripts/test-fseq-writer.ts",
+    "test:pipeline": "npx tsx scripts/test-full-pipeline.ts",
     "parse-layout": "npx tsx scripts/parse-layout.ts"
   },
   "dependencies": {
