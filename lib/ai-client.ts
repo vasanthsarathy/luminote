@@ -2,7 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import type { Constraints, ParsedLayout, SongAnalysis } from './types';
 
 const client = new Anthropic({
-  apiKey: process.env.CLAUDE_API_KEY || '',
+  apiKey: process.env.ANTHROPIC_API_KEY || '',
 });
 
 export async function parsePrompt(
@@ -48,7 +48,7 @@ If the user mentions specific models/areas, include them in spatialFocus.`;
 
   try {
     const response = await client.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-sonnet-4-5-20250929',
       max_tokens: 1024,
       messages: [{
         role: 'user',
@@ -63,7 +63,14 @@ If the user mentions specific models/areas, include them in spatialFocus.`;
     }
 
     // Parse the JSON response
-    const constraints = JSON.parse(content.text) as Constraints;
+    // Strip markdown code blocks if present
+    let jsonText = content.text.trim();
+    if (jsonText.startsWith('```')) {
+      // Remove markdown code blocks
+      jsonText = jsonText.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+    }
+
+    const constraints = JSON.parse(jsonText) as Constraints;
 
     return constraints;
   } catch (error) {
@@ -108,7 +115,7 @@ Keep it concise and exciting! Write in second person ("I created..." or "This va
 
   try {
     const response = await client.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-sonnet-4-5-20250929',
       max_tokens: 256,
       messages: [{
         role: 'user',

@@ -1,15 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateFSEQFilename } from '@/lib/fseq-writer';
-
-// Import the cache from the generate route
-// This is a workaround for the MVP - in production, use R2
-let fseqCache: Map<string, Buffer>;
-try {
-  const generateModule = require('../generate/route');
-  fseqCache = generateModule.fseqCache;
-} catch {
-  fseqCache = new Map();
-}
+import { getFseq } from '@/lib/fseq-cache';
 
 export async function GET(request: NextRequest) {
   try {
@@ -26,7 +17,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get FSEQ data from cache
-    const fseqBuffer = fseqCache.get(variantId);
+    const fseqBuffer = getFseq(variantId);
 
     if (!fseqBuffer) {
       return NextResponse.json(

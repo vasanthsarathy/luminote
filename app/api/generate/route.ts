@@ -5,16 +5,13 @@ import { parsePrompt, generateVariantRationale } from '@/lib/ai-client';
 import { generateEffectPlan, generateAllVariants } from '@/lib/variant-generator';
 import { renderAllEffects, FPS } from '@/lib/effect-renderer';
 import { writeFSEQ } from '@/lib/fseq-writer';
+import { setFseq } from '@/lib/fseq-cache';
 import type {
   ParsedLayout,
   SongAnalysis,
   Constraints,
   SequenceVariant,
 } from '@/lib/types';
-
-// In-memory cache for generated FSEQ files
-// In production, you'd use R2 or similar
-const fseqCache = new Map<string, Buffer>();
 
 export async function POST(request: NextRequest) {
   try {
@@ -101,7 +98,7 @@ export async function POST(request: NextRequest) {
 
       // Store in cache
       const variantId = `${song}-${strategy}-${Date.now()}`;
-      fseqCache.set(variantId, fseqBuffer);
+      setFseq(variantId, fseqBuffer);
 
       // Get variant info
       const variantInfo = getVariantInfo(strategy);
@@ -159,6 +156,3 @@ function getVariantInfo(strategy: 'energy' | 'elegant' | 'balanced'): {
       };
   }
 }
-
-// Export the cache so the download route can access it
-export { fseqCache };
